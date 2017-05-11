@@ -54,12 +54,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected abstract void setUpData(Bundle savedInstanceState);
 
 
+    /**
+     * 是否被系统强杀
+     */
     protected void protectApp() {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(ConstantValues.KEY_HOME_ACTION, ConstantValues.ACTION_RESTART_APP);
         startActivity(intent);
     }
 
+    /**
+     * 被挤下线
+     */
     protected void kickOut() {
 //        TODO show dialog to confirm
         Intent intent = new Intent(this, HomeActivity.class);
@@ -107,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     }
 
     protected void setUpMenu(int menuId) {
-        if (toolbar != null){
+        if (toolbar != null) {
             toolbar.getMenu().clear();
             if (menuId > 0) {
                 toolbar.inflateMenu(menuId);
@@ -133,8 +139,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
 
     @Override
     protected void onStart() {
-        if (AppStatusTracker.getInstance().checkIfShowGesture()){
+        if (AppStatusTracker.getInstance().checkIfShowGesture()) {
             L.d("need to show gesture");
+            // TODO:  是否需要显示锁屏界面
         }
         super.onStart();
     }
